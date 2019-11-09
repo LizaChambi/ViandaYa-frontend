@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/TableProviders.css';
+// import './css/TableProviders.css';
 
 import Datos from './Content'
 
@@ -10,7 +10,7 @@ const TableHeader = () =>
     	    <tr>
     			<th>Nombre</th>
     			<th>Localidad</th>
-                <th>Direccion</th>
+          <th>Direccion</th>
     		</tr>
     	</thead>
 	)
@@ -18,12 +18,12 @@ const TableHeader = () =>
 
 const TableBody = props => 
 {   
-    const rows = props.map((row, index) => {
+    const rows = props.providerData.providers.map(provider => {
     	return (
-    		<tr key={index}>
-    		<td>{row.name}</td>
-    		<td>{row.city}</td>
-            <td>{row.direction}</td>
+    		<tr key={provider}>
+    		<td>{provider.name}</td>
+    		<td>{provider.city}</td>
+        <td>{provider.direction}</td>
     	</tr>
     	)
     })
@@ -36,7 +36,7 @@ const TableProviders = props => {
     <div className="TableProviders">
         <table>
 		    <TableHeader />
-		    <TableBody providerData = {props}/>
+		    <TableBody providerData = {props.providerData}/>
 	    </table>
     </div>
   )
