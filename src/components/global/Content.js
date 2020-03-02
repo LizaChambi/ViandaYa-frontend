@@ -1,18 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { translate } from "react-translate";
 import './css/Content.css';
 
-import TableProviders from './TableProviders'
-import TableMenus from './TableMenus'
-import Datos from './Datos'
+import TableProviders from './TableProviders';
+import TableMenus from './TableMenus';
+import ListProviders from './TableProviders2';
+import ListUsers from './TableUser';
+import MenuCards from './ListMenus';
+import { generate } from 'shortid';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ListaProveedores = {
 		providers:[
 			{
+				key: generate(),
 				name: 'Liza Chambi',
 				city: 'Luis Guillón',
 				direction: 'Vidal 1015',
 				menu: 
 					{
+						key: generate(),
 						name: 'Pizza Olivo',
 						description: 'Pizza de mozzarella cubierta de aceitunas.',
 						price: '120',
@@ -22,11 +29,13 @@ const ListaProveedores = {
 					}
 			},
 			{
+				key: generate(),
 				name: 'Melody Orellana',
 				city: 'Monte Grande',
 				direction: 'Boulevar 1020',
 				menu: 
 				{
+					key: generate(),
 					name: 'Picante de pollo',
 					description: 'Pollo con salsa picante con guarnición de arroz.',
 					price: '150',
@@ -36,11 +45,13 @@ const ListaProveedores = {
 				}
 			},
 			{
+				key: generate(),
 				name: 'Nahuel Benitez',
 				city: 'Quilmes',
 				direction: 'Agote 2743',
 				menu: 
 				{
+					key: generate(),
 					name: 'Pique',
 					description: 'Salteado de verduras, huevo y carne asada.',
 					price: '150',
@@ -50,11 +61,13 @@ const ListaProveedores = {
 				}
 			},
 			{
+				key: generate(),
 				name: 'Elisa Nova',
 				city: 'Avellaneda',
 				direction: 'Av. San Martín 2001',
 				menu: 
 				{
+					key: generate(),
 					name: 'Api morado',
 					description: 'Bebida de maiz morado con limón.',
 					price: '150',
@@ -70,7 +83,7 @@ const ListaMenus = {
 	menus: ListaProveedores.providers.map(proveedor => proveedor.menu)
 }
 
-const ListProviders = props => {
+//const ListProviders = props => {
 		// return (
 		// <div>
 		// 	{//props.datosProveedores.providers.map(provider => <h2>Proveedor: {provider.name}</h2>)
@@ -80,11 +93,12 @@ const ListProviders = props => {
 		// 		//ListaDatos.setState({providers: [props.datosProveedores.providers[0]] })}
 		// 		}}>Achicar</button>
 		// </div>
-}
+//}
 
 
 const NewProvider = () => {
 	const newProvider = {
+		key: generate(),
 		name: 'Nuevo Proveedor',
 				city: 'Ciudad Perdida',
 				direction: 'Calle Falsa 123',
@@ -108,37 +122,43 @@ const NewProvider = () => {
 }
 
 
-const Content = () => {
+const Content = props => {
+	const {t} = props
   return (
     <div>
-			<div className="Content">
-      	<h1> ¡Pedi YA tu delivery online! </h1>
-      	<p> Los restaurantes mejor calificados para tu deleite.</p>
-			</div>
-			
+		<div className="Content">
+      		<h1> {t(props.header)} </h1>
+      		<p> {t(props.description)}</p>
+			<MenuCards menues= {props.menus}/>
+		</div>
+
 			<div className= "TituloFondo">
-				<h2>Nuestros proveedores:</h2>
+				<h2> {t(props.provTitle)}</h2>
 			</div>
 			
 			<div className="Content">
-				<TableProviders providerData = {ListaProveedores} />
+				<TableProviders providerData = {ListaProveedores} title = ""/>
 				<NewProvider/>
 			</div>
 			
 			<div className= "TituloFondo">
-				<h2>Menus vigentes:</h2>
+				<h2> {t(props.menuTitle)}</h2>
 			</div>
 			
 			<div className="Content">
-				<TableMenus menuData = {ListaMenus} />
 			</div>
 			<hr/>
 			<div className="Content">
 				<h2> Espacio de prueba de código: </h2>
-				<Datos/>
+			</div>
+			<hr/>
+			<div className="Content">
+				<ListUsers/>
+				<ListProviders/>
 			</div>
 		</div>
   );
 }
 
-export default Content;
+export default translate('div')(Content);
+//export default Content;

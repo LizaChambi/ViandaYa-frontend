@@ -1,7 +1,6 @@
 import React from 'react';
+import { generate } from 'shortid';
 import './css/TableMenus.css';
-
-import Datos from './Content'
 
 const TableHeader = () => 
 {
@@ -23,7 +22,7 @@ const TableBody = props =>
 {   
     const rows = props.menuData.menus.map(menu => {
     	return (
-    		<tr key={menu}>
+    		<tr key={generate()}>
     		<td>{menu.name}</td>
     		<td>{menu.description}</td>
             <td>{menu.price}</td>
